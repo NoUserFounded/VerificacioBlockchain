@@ -1,0 +1,37 @@
+{
+  "Chain": [
+    {
+      "Index": 0,
+      "Timestamp": "2024-10-01T10:39:07.6644372+02:00",
+      "Data": "BLOC_INICIAL",
+      "PreviousHash": "",
+      "Hash": "Vq97Vv88+0wrPeoX9VivqtdW7LHF75Co+aTDe8dVJ44=",
+      "Nonce": 0
+    },
+    {
+      "Index": 1,
+      "Timestamp": "2024-10-01T10:39:25.1900689+02:00",
+      "Data": "[{\"DocContent\":\"ORDERS_D_96A_UN_EAN008\\r\\nORD|081243444007|22E|\\r\\nDTM|20200119|\\r\\nNADMS|OUTER|50B|\\r\\nNADMR|MUSTNORTTAF1|\\r\\nLIN|0000INRIDATH|741001009689|EN|\\r\\nQTYLIN|21|41|\\r\\nDTMLIN|20200210|\\r\\nLIN|0000OUTMUST|741001009692|EN|\\r\\nQTYLIN|42|27|\\r\\nDTMLIN|20200215|\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\"}]",
+      "PreviousHash": "Vq97Vv88+0wrPeoX9VivqtdW7LHF75Co+aTDe8dVJ44=",
+      "Hash": "00U2Ky+B4Lm9AGabzU61oDR5hHUO7FBf0WIpcHTzPTs=",
+      "Nonce": 5788
+    },
+    {
+      "Index": 2,
+      "Timestamp": "2024-10-01T10:49:26.2392055+02:00",
+      "Data": "[{\"DocContent\":\"ORDERS_D_96A_UN_EAN008\\r\\nORD|081243444007|22E|\\r\\nDTM|20200119|\\r\\nNADMS|OUTER|50B|\\r\\nNADMR|MUSTNORTTAF1|\\r\\nLIN|0000INRIDATH|741001009689|EN|\\r\\nQTYLIN|21|41|\\r\\nDTMLIN|20200210|\\r\\nLIN|0000OUTMUST|741001009692|EN|\\r\\nQTYLIN|21|27|\\r\\nDTMLIN|20200215|\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\\r\\n\"}]",
+      "PreviousHash": "00U2Ky+B4Lm9AGabzU61oDR5hHUO7FBf0WIpcHTzPTs=",
+      "Hash": "00XFyRZlTlXq1S29aDsaZBdfefcsiJM+D6s69jPbcK4=",
+      "Nonce": 6502
+    },
+    {
+      "Index": 3,
+      "Timestamp": "2025-03-07T20:23:45.981065+01:00",
+      "Data": "EricSanclimensTarruellaS2AM",
+      "PreviousHash": "00XFyRZlTlXq1S29aDsaZBdfefcsiJM+D6s69jPbcK4=",
+      "Hash": "000232917D5947567B4A6A874A5700BD33D43C6F1AFFE018FB638D9875326F5F",
+      "Nonce": 9792
+    }
+  ],
+  "Difficulty": 0
+}
