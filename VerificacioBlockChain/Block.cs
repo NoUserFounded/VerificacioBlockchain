@@ -13,10 +13,7 @@ namespace SerialitzacioJSON
         public string Hash { get; set; }
         public int Nonce { get; set; }
 
-        // Constructor sin parámetros necesario para la deserialización
-        public Block() { }
 
-        // Constructor con parámetros
         public Block(int index, DateTime timestamp, string data, string previousHash, int nonce)
         {
             Index = index;
@@ -24,13 +21,13 @@ namespace SerialitzacioJSON
             Data = data;
             PreviousHash = previousHash;
             Nonce = nonce;
-            Hash = CalculateHash();  // El hash se calcula al crear el bloque
+            Hash = string.Empty; // El hash se calcula al crear el bloque
         }
 
         // Método para calcular el hash del bloque
-        public string CalculateHash()
+        public static string CalculateHash(int index, DateTime timestamp, string data, string previousHash, int nonce)
         {
-            string blockData = Index.ToString() + Timestamp.ToString() + Data + PreviousHash + Nonce.ToString();
+            string blockData = index.ToString() + timestamp.ToString() + data + previousHash + nonce.ToString();
             using (SHA256 sha256 = SHA256.Create())
             {
                 byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(blockData));
@@ -44,7 +41,7 @@ namespace SerialitzacioJSON
             while (!Hash.StartsWith(target))
             {
                 Nonce++;
-                Hash = CalculateHash();
+                Hash = CalculateHash(this.Index,this.Timestamp,this.Data,this.PreviousHash,this.Nonce);
             }
         }
     }

@@ -56,10 +56,7 @@ namespace SerialitzacioJSON
                     txtDifficulty.Enabled = true;
                 }
 
-                // Mostrar la cadena de bloques en el RichTextBox
-                rtbBlockchain.Text = JsonConvert.SerializeObject(blockchain, Formatting.Indented);
                 deserializar();
-
                 rtbActions.Text = String.Format("{1}\n{0}", rtbActions.Text, "Arxiu JSON carregat correctament!");
             }
             else
@@ -68,50 +65,28 @@ namespace SerialitzacioJSON
             }
         }
 
-        // Evento para agregar un bloque
+
         private void btnAddBlock_Click(object sender, EventArgs e)
         {
-            // Abrir archivo cuando el formulario se cargue
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "All Files|*.*",  // Permitir cualquier tipo de archivo
+                Filter = "All Files|*.*",
                 Title = "Seleccionar un archivo"
             };
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                // Leer el contenido del archivo seleccionado
                 string filePath = openFileDialog.FileName;
-                string fileContent = File.ReadAllText(filePath);  // Leer el archivo como texto
+                string fileContent = File.ReadAllText(filePath);
 
-                // Obtener el último bloque
-                Block lastBlock = blockchain.Chain.Last();
-
-                // Asegurarse de que el índice del nuevo bloque sea el índice del último bloque + 1
-                int newIndex = lastBlock.Index + 1;
-
-                Random random = new Random();
-                int nonce = random.Next(0, 10001);  // Generar un valor aleatorio entre 0 y 10000
-
-                
-                // Crear un nuevo bloque con los parámetros necesarios
-                Block newBlock = new Block(newIndex, DateTime.Now, fileContent, lastBlock.Hash, nonce);
-
-                // Minar el bloque con la dificultad especificada
-                newBlock.MineBlock(int.Parse(txtDifficulty.Text));
-
-                // Agregar el nuevo bloque a la cadena
-                blockchain.Chain.Add(newBlock);
-
-                // Mostrar la blockchain actualizada en el RichTextBox
-                rtbBlockchain.Text = JsonConvert.SerializeObject(blockchain, Formatting.Indented);
+                Block newBlock = new Block(blockchain.Chain.Count, DateTime.Now, fileContent, "", 0);
+                blockchain.AddBlock(newBlock);
 
                 rtbActions.Text = String.Format("{1}\n{0}", rtbActions.Text, "Bloque agregado con éxito.");
                 serializar();
             }
         }
 
-        // Evento para serializar el bloque
         private void serializar()
         {
             if (string.IsNullOrEmpty(filePath))
@@ -120,30 +95,21 @@ namespace SerialitzacioJSON
                 return;
             }
 
-            // Serializar la blockchain completa, no solo un bloque individual
             string json = JsonConvert.SerializeObject(blockchain, Formatting.Indented);
-
-            // Guardar el JSON en el archivo ya existente
             File.WriteAllText(filePath, json);
 
             deserializar();
         }
 
-        // Evento para deserializar el bloque
         private void deserializar()
         {
-            // Leer el contenido del archivo JSON
             string json = File.ReadAllText(filePath);
-
-            // Deserializar el JSON en la Blockchain completa
             blockchain = JsonConvert.DeserializeObject<Blockchain>(json);
 
             if (blockchain != null && blockchain.Chain != null && blockchain.Chain.Count > 0)
             {
-                // Limpiar cualquier fila existente en el DataGridView
                 dataGridViewBlockchain.Rows.Clear();
 
-                // Configurar las columnas si aún no están configuradas (esto solo se hace una vez)
                 if (dataGridViewBlockchain.Columns.Count == 0)
                 {
                     dataGridViewBlockchain.Columns.Add("Index", "Índice");
@@ -154,8 +120,7 @@ namespace SerialitzacioJSON
                     dataGridViewBlockchain.Columns.Add("Nonce", "Nonce");
                 }
 
-                // Agregar los bloques a las filas del DataGridView
-                foreach (var block in blockchain.Chain)
+                foreach (Block block in blockchain.Chain)
                 {
                     dataGridViewBlockchain.Rows.Add(
                         block.Index,
@@ -175,7 +140,6 @@ namespace SerialitzacioJSON
 
         private void btnCheckFile_Click(object sender, EventArgs e)
         {
-            // Abrir archivo JSON cuando el formulario se cargue
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Filter = "All Files| *",
@@ -184,17 +148,17 @@ namespace SerialitzacioJSON
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                // Guardar la ruta del archivo
-                string documentToCheck = openFileDialog.FileName;
-                string documentContent = File.ReadAllText(documentToCheck);
-                // Crear un nuevo bloque con los parámetros necesarios
                 int index = int.Parse(txtIndex.Text);
                 Block originalBlock = blockchain.Chain.ElementAt(index);
-                Block newBlock = new Block(index, DateTime.Now, documentContent, originalBlock.PreviousHash, originalBlock.Nonce);
 
-                lblResultIndex.Text = String.Format("{0}{1}", lblResultIndex.Text, index.ToString());
+                string documentToCheck = openFileDialog.FileName;
+                string documentContent = File.ReadAllText(documentToCheck);
+                string hashNewBlock = Block.CalculateHash(index, originalBlock.Timestamp, documentContent, originalBlock.PreviousHash, originalBlock.Nonce);
+
+                lblResultIndex.Text = String.Format("Document Index: {0}", index.ToString());
                 lblResult.Visible = true;
-                if (originalBlock == newBlock)
+
+                if (originalBlock.Hash == hashNewBlock)
                 {
                     pbResult.Image = Properties.Resources.OK;
                     lblResult.Text = "Succesfuly verified";
@@ -208,16 +172,19 @@ namespace SerialitzacioJSON
 
         private void txtIndex_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-                // Verificar si el contenido del TextBox es un número
                 if (string.IsNullOrWhiteSpace(txtIndex.Text) || !int.TryParse(txtIndex.Text, out _))
                 {
-                    e.Cancel = true; // Cancelar el evento de pérdida de foco
+                    e.Cancel = true;
                 }
                 else
                 {
-                    // Si es un número, habilitar el botón
                     btnCheckFile.Enabled = true;
                 }
+        }
+
+        private void btnDeserialize_Click(object sender, EventArgs e)
+        {
+            rtbBlockchain.Text = JsonConvert.SerializeObject(blockchain, Formatting.Indented);
         }
     }
 }

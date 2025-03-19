@@ -73,7 +73,7 @@
             this.label1.Location = new System.Drawing.Point(49, 255);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 20);
-            this.label1.TabIndex = 4;
+            this.label1.TabIndex = 5;
             this.label1.Text = "Dificulty:";
             // 
             // btnDeserialize
@@ -81,16 +81,17 @@
             this.btnDeserialize.Location = new System.Drawing.Point(53, 180);
             this.btnDeserialize.Name = "btnDeserialize";
             this.btnDeserialize.Size = new System.Drawing.Size(118, 53);
-            this.btnDeserialize.TabIndex = 5;
+            this.btnDeserialize.TabIndex = 2;
             this.btnDeserialize.Text = "Show BlockChain";
             this.btnDeserialize.UseVisualStyleBackColor = true;
+            this.btnDeserialize.Click += new System.EventHandler(this.btnDeserialize_Click);
             // 
             // btnAddBlock
             // 
             this.btnAddBlock.Location = new System.Drawing.Point(53, 108);
             this.btnAddBlock.Name = "btnAddBlock";
             this.btnAddBlock.Size = new System.Drawing.Size(118, 50);
-            this.btnAddBlock.TabIndex = 6;
+            this.btnAddBlock.TabIndex = 1;
             this.btnAddBlock.Text = "Add new Block";
             this.btnAddBlock.UseVisualStyleBackColor = true;
             this.btnAddBlock.Click += new System.EventHandler(this.btnAddBlock_Click);
@@ -100,7 +101,7 @@
             this.rtbBlockchain.Location = new System.Drawing.Point(964, 57);
             this.rtbBlockchain.Name = "rtbBlockchain";
             this.rtbBlockchain.Size = new System.Drawing.Size(309, 521);
-            this.rtbBlockchain.TabIndex = 10;
+            this.rtbBlockchain.TabIndex = 7;
             this.rtbBlockchain.Text = "";
             // 
             // dataGridViewBlockchain
@@ -111,14 +112,14 @@
             this.dataGridViewBlockchain.RowHeadersWidth = 62;
             this.dataGridViewBlockchain.RowTemplate.Height = 28;
             this.dataGridViewBlockchain.Size = new System.Drawing.Size(905, 297);
-            this.dataGridViewBlockchain.TabIndex = 11;
+            this.dataGridViewBlockchain.TabIndex = 6;
             // 
             // rtbActions
             // 
             this.rtbActions.Location = new System.Drawing.Point(711, 58);
             this.rtbActions.Name = "rtbActions";
             this.rtbActions.Size = new System.Drawing.Size(238, 176);
-            this.rtbActions.TabIndex = 12;
+            this.rtbActions.TabIndex = 4;
             this.rtbActions.Text = "";
             // 
             // lblTitle
@@ -139,7 +140,7 @@
             this.gpFileVerification.Location = new System.Drawing.Point(192, 58);
             this.gpFileVerification.Name = "gpFileVerification";
             this.gpFileVerification.Size = new System.Drawing.Size(200, 175);
-            this.gpFileVerification.TabIndex = 14;
+            this.gpFileVerification.TabIndex = 3;
             this.gpFileVerification.TabStop = false;
             this.gpFileVerification.Text = "File verification";
             // 
@@ -166,7 +167,7 @@
             this.btnCheckFile.Location = new System.Drawing.Point(16, 106);
             this.btnCheckFile.Name = "btnCheckFile";
             this.btnCheckFile.Size = new System.Drawing.Size(113, 52);
-            this.btnCheckFile.TabIndex = 0;
+            this.btnCheckFile.TabIndex = 1;
             this.btnCheckFile.Text = "Check Document";
             this.btnCheckFile.UseVisualStyleBackColor = true;
             this.btnCheckFile.Click += new System.EventHandler(this.btnCheckFile_Click);
